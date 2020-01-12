@@ -39,6 +39,11 @@ Add the following to a line in your .env file to use named volumes instead of a 
 COMPOSE_FILE=docker-compose_named-volumes.yml
 ```
 
+_It is important that files in this repo have line feed ("\n") Unix style line endings since some of them will be copied and ran_
+_within linux containers_. A .gitattributes file was added to ensure this on checkout. In addition, a .vscode settings.json file was
+added to configure your vs code editor workspace to maintain this in any edits to those files. dos2unix steps can be added to
+the dockerfiles to ensure the proper format but I am not certain this is needed at this time.
+
 ## Usage
 
 To build the images:
