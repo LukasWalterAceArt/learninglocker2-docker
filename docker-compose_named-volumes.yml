@@ -25,7 +25,9 @@ services:
             - learninglocker_xapi-storage:/usr/src/app/storage
 
     api:
-        image: michzimny/learninglocker2-app:${DOCKER_TAG}
+        build:
+            dockerfile: ./app/Dockerfile
+            context: ./
         environment:
             - DOMAIN_NAME
             - APP_SECRET
@@ -40,10 +42,13 @@ services:
             - mongo
             - redis
         volumes:
-            - learninglocker_app-storage:/opt/learninglocker/storage
+            - ./learninglocker/:/opt/learninglocker/
+            #- learninglocker_app-storage:/opt/learninglocker/storage
 
     ui:
-        image: michzimny/learninglocker2-app:${DOCKER_TAG}
+        build:
+            dockerfile: ./app/Dockerfile
+            context: ./
         environment:
             - DOMAIN_NAME
             - APP_SECRET
@@ -59,11 +64,14 @@ services:
             - redis
             - api
         volumes:
-            - learninglocker_app-storage:/opt/learninglocker/storage
-            - learninglocker_ui-logs:/opt/learninglocker/logs
+            - ./learninglocker/:/opt/learninglocker/
+            #- learninglocker_app-storage:/opt/learninglocker/storage
+            #- learninglocker_ui-logs:/opt/learninglocker/logs
 
     worker:
-        image: michzimny/learninglocker2-app:${DOCKER_TAG}
+        build:
+            dockerfile: ./app/Dockerfile
+            context: ./
         environment:
             - DOMAIN_NAME
             - APP_SECRET
@@ -78,7 +86,8 @@ services:
             - mongo
             - redis
         volumes:
-            - learninglocker_app-storage:/opt/learninglocker/storage
+            - ./learninglocker/:/opt/learninglocker/
+            #- learninglocker_app-storage:/opt/learninglocker/storage
 
     nginx:
         image: michzimny/learninglocker2-nginx:${DOCKER_TAG}

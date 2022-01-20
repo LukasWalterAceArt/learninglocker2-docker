@@ -20,25 +20,27 @@ RUN apt-get update \
 RUN npm install -g yarn 
 
 # install LL app
-ENV LL_TAG=v2.8.2
-RUN git clone https://github.com/LearningLocker/learninglocker.git /opt/learninglocker \
-    && cd /opt/learninglocker \
-    && git checkout $LL_TAG \
-    && yarn install \
-    && yarn build-all
+#ENV LL_TAG=v2.8.2
+
+
+VOLUME /opt/learninglocker
 
 WORKDIR /opt/learninglocker
 
+#RUN cd /opt/learninglocker \
+    #&& yarn install \
+    #&& yarn build-all
+
 # make a copy of the origin storage directory that will be used in entrypoint-common.sh
 # to fill up a volume mounted here, if it's empty
-RUN cp -r storage storage.template
+#RUN cp -r storage storage.template
 
 # service api exposes port 8080
 # service ui exposes port 3000
 # see env.template
 EXPOSE 3000 8080
 
-COPY env.template .env.template
+#COPY env.template .env.template
 COPY entrypoint-common.sh entrypoint-common.sh
 COPY entrypoint-ui.sh entrypoint-ui.sh
 
