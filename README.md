@@ -129,3 +129,17 @@ docker-compose stop xapi worker ui api nginx
 docker-compose run --rm api yarn migrate
 docker-compose up
 ```
+### Change LearningLocker Code
+
+For CSS changes: 
+
+```
+yarn build-ui-client
+```
+
+For JavaScript changes: 
+
+```
+yarn build-ui-client
+Restart Docker Ui-Container 
+```
